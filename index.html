@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>QR Code Generator</title>
+    <link href="./style.css" rel="stylesheet" type="text/css">
+    <script src="./qrcode.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="form-container">
+        <form id="form">
+            <fieldset>
+                <legend>QR Code Generator</legend>
+                <div class="form-row">
+                    <label for="size">Size:</label>
+                    <input type="number" id="size" value="128">
+                </div>
+                <div class="form-row">
+                    <label for="url">URL:</label>
+                    <input type="text" id="url" value="https://">
+                </div>
+                <button onclick="generate();">Generate</button>
+            </fieldset>
+        </form>
+        <p>Based on <a href="https://github.com/davidshimjs/qrcodejs" target="_blank">@davidshimjs</a> QR Code generator for javascript</p>
+    </div>
+    <div id="qrcode"></div>
+</div>
+<script type="text/javascript">
+    document.getElementById("form").addEventListener("click", (event) => {
+        event.preventDefault();
+    });
+
+    const generate = () => {
+        document.getElementById("qrcode").innerHTML = '';
+        const size = parseInt(document.getElementById("size").value)
+        new QRCode(document.getElementById("qrcode"), {
+            text: document.getElementById("url").value,
+            width: size,
+            height: size,
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    }
+</script>
+</body>
+</html>
